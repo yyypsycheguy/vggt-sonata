@@ -115,7 +115,7 @@ def demo_fn(args):
     print(f"Model loaded")
 
     # Get image paths and preprocess them
-    image_dir = os.path.join(args.scene_dir, "images")
+    image_dir = "images" #os.path.join(args.scene_dir, "")
     image_path_list = glob.glob(os.path.join(image_dir, "*"))
     if len(image_path_list) == 0:
         raise ValueError(f"No images found in {image_dir}")

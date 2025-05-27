@@ -1,11 +1,12 @@
 import os
 
 import torch
+
 from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-# bfloat16 is supported on Ampere GPUs (Compute Capability 8.0+) 
+# bfloat16 is supported on Ampere GPUs (Compute Capability 8.0+)
 dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
 
 # Initialize the model and load the pretrained weights.
@@ -16,7 +17,7 @@ model = VGGT.from_pretrained("facebook/VGGT-1B").to(device)
 image_names = []
 for img in os.listdir("images"):
     if img.endswith((".jpg", ".jpeg", ".png")):
-        image_names.append(os.path.join("images", img))  
+        image_names.append(os.path.join("images", img))
 
 images = load_and_preprocess_images(image_names).to(device)
 
@@ -26,8 +27,7 @@ with torch.no_grad():
         predictions = model(images)
 
 
-
 # Save the predictions to a file
-output_file = "3d-prediction/predictions.pt"
+output_file = "predictions.ply"
 torch.save(predictions, output_file)
 print(f"Predictions saved to {output_file}")
