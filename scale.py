@@ -1,5 +1,5 @@
-import open3d as o3d
 import numpy as np
+import open3d as o3d
 import torch
 
 data = torch.load("predictions.pt")
@@ -10,8 +10,8 @@ pcd = o3d.io.read_point_cloud("predictions/predictions.ply")
 # Calculate current height
 points = np.asarray(pcd.points)
 print("Current points shape:", points.shape)
-print(points[:5])  
-current_height = np.max(points[:, 2]) - np.min(points[:, 2])
+print(points[:5])
+current_height = np.max(points[:, 0]) - np.min(points[:, 0])
 print("Current height:", current_height)
 
 target_height = 3.0

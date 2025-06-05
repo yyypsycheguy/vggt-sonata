@@ -147,3 +147,12 @@ skyseg.onnx
 # pixi environments
 .pixi
 *.egg-info
+
+
+# .ply and .pt output files
+*.ply
+*.pt
+*.jpg
+*.png
+images/*.jpg
+video/

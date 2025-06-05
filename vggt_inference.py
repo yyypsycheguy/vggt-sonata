@@ -28,7 +28,7 @@ with torch.no_grad():
     with torch.amp.autocast("cuda", dtype=dtype):
         # Predict attributes including cameras, depth maps, and point maps.
         predictions = model(images)
-
+print(f"prediction keys:{predictions.keys()}")
 def convert_vggt_to_sonata(predictions, scale_factor=3.0, confidence_threshold=0.01):
     import numpy as np
     import torch
@@ -47,7 +47,6 @@ def convert_vggt_to_sonata(predictions, scale_factor=3.0, confidence_threshold=0
     world_points = predictions["world_points"] #[B, S, H, W, 3] 
     grid_points = world_points[0, 0].cpu().numpy()
     coords = grid_points.reshape(-1, 3) * (-scale_factor) # Flatten to Nx3
-    print(grid_points)
 
     # Compute normals (same shape as input)
     normals_grid = normal_from_cross_product(grid_points)  
